@@ -6,16 +6,20 @@ public class Test : MonoBehaviour
 {
     private void OnEnable()
     {
-        ControlManager.OnTapOverFan += ChangeColor;
+        ControlManager.OnTapOverFan += ChangeColorInObject;
     }
 
     private void OnDisable()
     {
-        ControlManager.OnTapOverFan -= ChangeColor;
+        ControlManager.OnTapOverFan -= ChangeColorInObject;
     }
 
-    void ChangeColor(GameObject gameObject)
+    void ChangeColorInObject(GameObject obj)
     {
-        GetComponent<Renderer>().material.color = Color.blue;
+        TestColorChange test = obj.GetComponent<TestColorChange>();
+        if (test != null)
+        {
+            test.ChangeColor();
+        }
     }
 }
