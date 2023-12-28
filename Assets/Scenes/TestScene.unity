@@ -835,6 +835,7 @@ MonoBehaviour:
   ReleasePosition: {fileID: 1268168339}
   CharmBallRb: {fileID: 754854406}
   trajectory: {fileID: 714821652}
+  bowControlManager: {fileID: 1052615253}
 --- !u!135 &754854402
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1096,7 +1097,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlManager: {fileID: 1488734055}
   ballTest: {fileID: 714821652}
-  sensetivity: 200
+  sensetivity: 1
 --- !u!4 &1052615254
 Transform:
   m_ObjectHideFlags: 0
