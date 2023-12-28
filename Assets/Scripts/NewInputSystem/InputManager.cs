@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +11,16 @@ public class InputManager : Singleton<InputManager>
 
     public delegate void PerformTap(Vector2 position);
     public event PerformTap OnPerformTap;
+    
+    public delegate void StartLeft(Vector3 vector3, bool right);
+    public event StartLeft OnStartLeft;
+    public delegate void StartRight(Vector3 vector3, bool right);
+    public event StartRight OnStartRight;
+    
+    public delegate void EndLeft();
+    public event EndLeft OnEndLeft;
+    public delegate void EndRight();
+    public event EndRight OnEndRight;
 
     private PlayerControls playerControls;
 
@@ -33,10 +41,15 @@ public class InputManager : Singleton<InputManager>
 
     void Start()
     {
-        playerControls.ComputerInputMap.PrimaryContact.started += ctx => StartTouchPrimary(ctx);
-        playerControls.ComputerInputMap.PrimaryContact.canceled += ctx => EndTouchPrimary(ctx);
+        playerControls.ComputerInputMap.MousePrimaryContact.started += ctx => StartTouchPrimary(ctx);
+        playerControls.ComputerInputMap.MousePrimaryContact.canceled += ctx => EndTouchPrimary(ctx);
 
         playerControls.ComputerInputMap.MouseTap.started += ctx => PerformPrimaryTap(ctx);
+
+        playerControls.ComputerInputMap.LeftArrow.started += ctx => StartLeftArrow(ctx);
+        playerControls.ComputerInputMap.RightArrow.started += ctx => StartRightArrow(ctx);
+        playerControls.ComputerInputMap.LeftArrow.canceled += ctx => EndLeftArrow(ctx);
+        playerControls.ComputerInputMap.RightArrow.canceled += ctx => EndRightArrow(ctx);
     }
 
     private void StartTouchPrimary(InputAction.CallbackContext context)
@@ -60,5 +73,25 @@ public class InputManager : Singleton<InputManager>
     private void PerformPrimaryTap(InputAction.CallbackContext context)
     {
         if (OnPerformTap != null) OnPerformTap(playerControls.ComputerInputMap.MouseTapPosition.ReadValue<Vector2>());
+    }
+
+    private void StartLeftArrow(InputAction.CallbackContext context)
+    {
+        if (OnStartLeft != null) OnStartLeft(Vector3.left, false);
+    }
+    
+    private void StartRightArrow(InputAction.CallbackContext context)
+    {
+        if (OnStartRight != null) OnStartRight(Vector3.right, true);
+    }
+    
+    private void EndLeftArrow(InputAction.CallbackContext context)
+    {
+        if (OnEndLeft != null) OnEndLeft();
+    }
+    
+    private void EndRightArrow(InputAction.CallbackContext context)
+    {
+        if (OnEndRight != null) OnEndRight();
     }
 }

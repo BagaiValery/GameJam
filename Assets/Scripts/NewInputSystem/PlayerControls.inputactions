@@ -6,6 +6,24 @@
             "id": "8bafa859-4eae-4209-9267-5f345494b808",
             "actions": [
                 {
+                    "name": "LeftArrow",
+                    "type": "Value",
+                    "id": "e6e1487e-0a86-42b1-8ab5-8b7417f1655f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "RightArrow",
+                    "type": "Value",
+                    "id": "b7cf912e-5f7d-43c3-a7e7-73abbf0eac06",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "MouseTap",
                     "type": "Button",
                     "id": "c7f3f239-fbd3-4ad6-804c-311d476edb12",
@@ -15,25 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LeftArrow",
-                    "type": "Button",
-                    "id": "e6e1487e-0a86-42b1-8ab5-8b7417f1655f",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RigthArrow",
-                    "type": "Button",
-                    "id": "b7cf912e-5f7d-43c3-a7e7-73abbf0eac06",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "PrimaryContact",
+                    "name": "MousePrimaryContact",
                     "type": "PassThrough",
                     "id": "4359c742-2308-4a8b-9e02-818aa7ca2eed",
                     "expectedControlType": "Button",
@@ -54,17 +54,6 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "52dda217-4b39-492c-90bf-9e68243d0cc1",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseTap",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "eac9f88d-8f73-4889-a4ab-9c4d40e5425b",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
@@ -81,7 +70,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RigthArrow",
+                    "action": "RightArrow",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -92,7 +81,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PrimaryContact",
+                    "action": "MousePrimaryContact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -104,6 +93,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "MouseTapPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "52dda217-4b39-492c-90bf-9e68243d0cc1",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseTap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
