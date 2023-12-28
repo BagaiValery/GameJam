@@ -10,7 +10,7 @@ public class FanBehaiver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.FindGameObjectWithTag("Star").GetComponent<Transform>();
     }
 
     // Update is called once per frame
