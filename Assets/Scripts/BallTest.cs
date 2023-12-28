@@ -6,7 +6,7 @@ public class BallTest : MonoBehaviour
 {
     [Header("Line renderer veriables")]
     public LineRenderer line;
-    [Range(2, 30)]
+    [Range(2, 300)]
     public int resolution;
 
     [Header("Formula variables")]

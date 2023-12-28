@@ -51,7 +51,7 @@ public class CharmBall : MonoBehaviour
     {
         float angle = Angle * Mathf.Deg2Rad;
 
-        DrawTrajectory(InitialVelocity, angle);
+        //DrawTrajectory(InitialVelocity, angle);
     }
 
     private void ThrowCharm(GameObject obj)
@@ -63,14 +63,16 @@ public class CharmBall : MonoBehaviour
 
     IEnumerator MovementCoroutine(float initVelocity, float angle)
     {
+        Vector3[] points = trajectory.CalculateLineArray();
         float t = 0;
-        while (t < 100) // until 100 seconds
+        //while (t < 100) // until 100 seconds
+        for(int i =0;i< points.Length;i++)
         {
             Vector3 startPosition = ReleasePosition.position;
             float x = initVelocity * t * Mathf.Cos(angle);
             float y = initVelocity * t * Mathf.Sin(angle) + 0.5f * Physics.gravity.y * t * t;
 
-            transform.position = startPosition + new Vector3(x, y, 0);
+            transform.position = points[i];//startPosition + new Vector3(x, y, 0);
             t += Time.deltaTime;
             yield return null;
         }
