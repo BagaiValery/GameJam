@@ -14,7 +14,7 @@ public class Test : MonoBehaviour
         ControlManager.OnTapOverFan -= ChangeColor;
     }
 
-    void ChangeColor(GameObject obj)
+    void ChangeColor(GameObject gameObject)
     {
         GetComponent<Renderer>().material.color = Color.blue;
     }

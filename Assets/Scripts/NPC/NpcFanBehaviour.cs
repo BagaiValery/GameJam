@@ -10,8 +10,8 @@ namespace Assets.Scripts
     class NpcFanBehaviour : INpcBehaviour
     {
         private float speed = 2.0f;
-        public Transform player;
-        public Transform npc;
+        private Transform player;
+        private Transform npc;
 
         public NpcFanBehaviour(Transform npc)
         {
