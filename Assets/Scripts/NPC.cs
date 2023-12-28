@@ -22,7 +22,7 @@ namespace Assets.Scripts
         {
             this.behaviourMap = new Dictionary<Type, INpcBehaviour>();
 
-            this.behaviourMap[typeof(NpcFanBehaviour)] = new NpcFanBehaviour();
+            this.behaviourMap[typeof(NpcFanBehaviour)] = new NpcFanBehaviour(this.transform);
             this.behaviourMap[typeof(NpcHaterBehaviour)] = new NpcHaterBehaviour();
             this.behaviourMap[typeof(NpcIdleBehaviour)] = new NpcIdleBehaviour();
         }
@@ -38,7 +38,6 @@ namespace Assets.Scripts
 
         private void SetDefoultBehaviour()
         {
-            //var defoultBehaiveour = GetBehaviourFromMap<NpcFanBehaviour>();
             this.SetIdleBehaviour();
         }
 
