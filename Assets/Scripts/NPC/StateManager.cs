@@ -9,6 +9,7 @@ namespace Assets.Scripts
 {
     class StateManager : MonoBehaviour
     {
+
         private void OnEnable()
         {
             ControlManager.OnTapOverFan += CharemedFan;
