@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ControlManager : MonoBehaviour
 {
+    public delegate void TapOverFan(GameObject gameObject);
+    public static event TapOverFan OnTapOverFan;
+
     public Vector3 TargetVector { get; set; }
     public Vector3 RightTargetVector { get; set; }
     public Vector3 LeftTargetVector { get; set; }
@@ -42,7 +47,40 @@ public class ControlManager : MonoBehaviour
 
     private void GetTap(Vector2 v)
     {
+        Ray ray = Camera.main.ScreenPointToRay(v);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
 
+            if (hit.collider.tag == "Fan" && !IsClickOnUI(v))
+            {
+                if (OnTapOverFan != null) OnTapOverFan(hit.collider.gameObject);
+                //testText.text = "Location";
+            }
+
+
+            //Debug.Log(hit.collider.tag + " " + LayerMask.LayerToName(hit.collider.gameObject.layer));
+            //testTText.text = hit.collider.tag + " " + LayerMask.LayerToName(hit.collider.gameObject.layer);
+        }
+    }
+
+    public bool IsClickOnUI(Vector2 vec)
+    {
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+        pointerEventData.position = vec;
+        List<RaycastResult> raycastResultsList = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, raycastResultsList);
+        bool mouseOverUI = false;
+        for (int i = 0; i < raycastResultsList.Count; i++)
+        {
+            if (raycastResultsList[i].gameObject.layer == LayerMask.NameToLayer("UI"))//GetType() == typeof(GameObject))
+            {
+                mouseOverUI = true;
+                //testText.text = "UI";
+                break;
+            }
+        }
+        return mouseOverUI;
     }
 
     #region Left-Right Movement
