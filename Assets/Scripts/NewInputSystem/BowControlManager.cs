@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BowControlManager : MonoBehaviour
 {
     [SerializeField] ControlManager controlManager;
-    [SerializeField] BallTest ballTest;
+    [SerializeField] BallTrajectory ballTest;
 
     public delegate void ShootCharm();
     public event ShootCharm OnShootCharm;
@@ -18,9 +19,28 @@ public class BowControlManager : MonoBehaviour
 
     [SerializeField] float sensetivity = 200;
 
+    [SerializeField] BallTrajectory ballTrajectory;
+
+    private ObjectPool objectPool;
+    
+
     private void Awake()
     {
         inputManager = InputManager.Instance;
+    }
+
+    private void Start()
+    {
+        objectPool = GetComponent<ObjectPool>();
+        objectPool.Init();
+        Debug.Log("1");
+        foreach (var obj in objectPool.pooledObjects)
+        {
+            var component = obj.GetComponent<CharmBall>();
+            component.trajectory = ballTrajectory;
+            component.bowControlManager = this;
+            component.ReleasePosition = ballTrajectory.transform.parent;
+        }
     }
 
     private void OnEnable()
@@ -35,19 +55,14 @@ public class BowControlManager : MonoBehaviour
         inputManager.OnStartTouch -= StartBow;
     }
 
-    void Update()
-    {
-
-    }
-
     private void EndBow(Vector2 position)
     {
         prevVector = Vector2.zero;
         Debug.Log("Stop");
         StopCoroutine(coroutine);
 
+        objectPool.GetPooledObject();
         if (OnShootCharm != null) OnShootCharm();
-
     }
     Vector2 prevVector;
     Vector2 curVector;
@@ -74,6 +89,8 @@ public class BowControlManager : MonoBehaviour
     {
         //show bow
         coroutine = StartCoroutine(BowPositionCoroutine());
+
+
     }
 
 

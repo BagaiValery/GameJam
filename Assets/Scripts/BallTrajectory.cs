@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallTest : MonoBehaviour
+public class BallTrajectory : MonoBehaviour
 {
     [Header("Line renderer veriables")]
     public LineRenderer line;
@@ -18,6 +18,8 @@ public class BallTest : MonoBehaviour
     [Range(2, 30)]
     public int linecastResolution;
     public LayerMask canHit;
+
+
 
     private void Start()
     {
