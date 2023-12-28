@@ -22,29 +22,32 @@ public class CharmBall : MonoBehaviour
 
     [SerializeField] BallTest trajectory;
 
+    [SerializeField]  private BowControlManager bowControlManager;
+
     private void Awake()
     {
-        int charmBallLayer = CharmBallRb.gameObject.layer;
-        for (int i = 0; i < 32; i++)
-        {
-            if (i != charmBallLayer && i != 6)
-                Physics.IgnoreLayerCollision(charmBallLayer, i);
 
-            if (Physics.GetIgnoreLayerCollision(charmBallLayer, i))
-            {
-                CharmBallCollisionLayerMask |= 1 << i;
-            }
-        }
+        //int charmBallLayer = CharmBallRb.gameObject.layer;
+        //for (int i = 0; i < 32; i++)
+        //{
+        //    if (i != charmBallLayer && i != 6)
+        //        Physics.IgnoreLayerCollision(charmBallLayer, i);
+
+        //    if (Physics.GetIgnoreLayerCollision(charmBallLayer, i))
+        //    {
+        //        CharmBallCollisionLayerMask |= 1 << i;
+        //    }
+        //}
     }
 
     private void OnEnable()
     {
-        //ControlManager.OnTapOverFan += ThrowCharm;
+        bowControlManager.OnShootCharm += ThrowCharm;
     }
 
     private void OnDisable()
     {
-        //ControlManager.OnTapOverFan -= ThrowCharm;
+        bowControlManager.OnShootCharm -= ThrowCharm;
     }
 
     // OnBowEnd - ThrowCharm
@@ -57,7 +60,7 @@ public class CharmBall : MonoBehaviour
         //DrawTrajectory(InitialVelocity, angle);
     }
 
-    private void ThrowCharm(GameObject obj)
+    private void ThrowCharm()
     {
         float angle = Angle * Mathf.Deg2Rad;
         if (movementCoroutine != null) StopCoroutine(movementCoroutine);

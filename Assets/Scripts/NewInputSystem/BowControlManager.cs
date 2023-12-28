@@ -8,6 +8,9 @@ public class BowControlManager : MonoBehaviour
     [SerializeField] ControlManager controlManager;
     [SerializeField] BallTest ballTest;
 
+    public delegate void ShootCharm();
+    public event ShootCharm OnShootCharm;
+
     private InputManager inputManager;
 
     Coroutine coroutine;
@@ -42,6 +45,8 @@ public class BowControlManager : MonoBehaviour
         prevVector = Vector2.zero;
         Debug.Log("Stop");
         StopCoroutine(coroutine);
+
+        if (OnShootCharm != null) OnShootCharm();
 
     }
     Vector2 prevVector;
