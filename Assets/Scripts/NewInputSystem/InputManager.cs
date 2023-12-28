@@ -1,17 +1,21 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [DefaultExecutionOrder(-1)]
 public class InputManager : Singleton<InputManager>
 {
-    public delegate void StartTouch(Vector2 position, float time);
+    public delegate void StartTouch(Vector2 position);
     public event StartTouch OnStartTouch;
     public delegate void EndTouch(Vector2 position, float time);
     public event EndTouch OnEndTouch;
 
     public delegate void PerformTap(Vector2 position);
     public event PerformTap OnPerformTap;
-    
+
+    public delegate void EndBow(Vector2 position);
+    public event EndBow OnEndBow;
+
     public delegate void StartLeft(Vector3 vector3, bool right);
     public event StartLeft OnStartLeft;
     public delegate void StartRight(Vector3 vector3, bool right);
@@ -44,6 +48,8 @@ public class InputManager : Singleton<InputManager>
         playerControls.ComputerInputMap.MousePrimaryContact.started += ctx => StartTouchPrimary(ctx);
         playerControls.ComputerInputMap.MousePrimaryContact.canceled += ctx => EndTouchPrimary(ctx);
 
+        playerControls.ComputerInputMap.MouseHoldButton.canceled += ctx => EndSwipe(ctx);
+
         playerControls.ComputerInputMap.MouseTap.started += ctx => PerformPrimaryTap(ctx);
 
         playerControls.ComputerInputMap.LeftArrow.started += ctx => StartLeftArrow(ctx);
@@ -55,24 +61,29 @@ public class InputManager : Singleton<InputManager>
     private void StartTouchPrimary(InputAction.CallbackContext context)
     {
         //if (OnStartTouch != null) OnStartTouch(Utils.ScreenToWorld(mainCamera, locMapInputControls.TouchScreenControl.PrimaryPosition.ReadValue<Vector2>()), (float)context.startTime);
-        if (OnStartTouch != null) OnStartTouch(playerControls.ComputerInputMap.MouseTapPosition.ReadValue<Vector2>(), (float)context.startTime);
+        if (OnStartTouch != null) OnStartTouch(playerControls.ComputerInputMap.MousePosition.ReadValue<Vector2>());
+    }
+
+    private void EndSwipe(InputAction.CallbackContext context)
+    {
+        if (OnEndBow != null) OnEndBow(playerControls.ComputerInputMap.MousePosition.ReadValue<Vector2>());
     }
 
     private void EndTouchPrimary(InputAction.CallbackContext context)
     {
         //if (OnEndTouch != null) OnEndTouch(Utils.ScreenToWorld(mainCamera, locMapInputControls.TouchScreenControl.PrimaryPosition.ReadValue<Vector2>()), (float)context.time);
-        if (OnEndTouch != null) OnEndTouch(playerControls.ComputerInputMap.MouseTapPosition.ReadValue<Vector2>(), (float)context.time);
+        if (OnEndTouch != null) OnEndTouch(playerControls.ComputerInputMap.MousePosition.ReadValue<Vector2>(), (float)context.time);
     }
 
-    public Vector2 PrimaryPosition()
+    public Vector2 MousePosition()
     {
         //return Utils.ScreenToWorld(mainCamera, locMapInputControls.TouchScreenControl.PrimaryPosition.ReadValue<Vector2>());
-        return playerControls.ComputerInputMap.MouseTapPosition.ReadValue<Vector2>();
+        return playerControls.ComputerInputMap.MousePosition.ReadValue<Vector2>();
     }
 
     private void PerformPrimaryTap(InputAction.CallbackContext context)
     {
-        if (OnPerformTap != null) OnPerformTap(playerControls.ComputerInputMap.MouseTapPosition.ReadValue<Vector2>());
+        if (OnPerformTap != null) OnPerformTap(playerControls.ComputerInputMap.MousePosition.ReadValue<Vector2>());
     }
 
     private void StartLeftArrow(InputAction.CallbackContext context)

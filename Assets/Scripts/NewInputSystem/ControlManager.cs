@@ -43,6 +43,8 @@ public class ControlManager : MonoBehaviour
 
         inputManager.OnEndRight -= EndRightMovement;
         inputManager.OnEndLeft -= EndLeftMovement;
+
+        
     }
 
     private void GetTap(Vector2 v)

@@ -64,13 +64,22 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""MouseTapPosition"",
+                    ""name"": ""MousePosition"",
                     ""type"": ""Value"",
                     ""id"": ""cea3c81a-9983-425f-a38d-7a4bccaa3175"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MouseHoldButton"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""9fc682c4-86bf-4c79-af5c-48a932ae192c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -110,11 +119,11 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""81393496-bb83-4395-abec-9af91c533774"",
-                    ""path"": ""<Mouse>/position"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MouseTapPosition"",
+                    ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -126,6 +135,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MouseTap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a1b6061-4946-47b8-850d-bde49233052f"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseHoldButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -140,7 +160,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_ComputerInputMap_RightArrow = m_ComputerInputMap.FindAction("RightArrow", throwIfNotFound: true);
         m_ComputerInputMap_MouseTap = m_ComputerInputMap.FindAction("MouseTap", throwIfNotFound: true);
         m_ComputerInputMap_MousePrimaryContact = m_ComputerInputMap.FindAction("MousePrimaryContact", throwIfNotFound: true);
-        m_ComputerInputMap_MouseTapPosition = m_ComputerInputMap.FindAction("MouseTapPosition", throwIfNotFound: true);
+        m_ComputerInputMap_MousePosition = m_ComputerInputMap.FindAction("MousePosition", throwIfNotFound: true);
+        m_ComputerInputMap_MouseHoldButton = m_ComputerInputMap.FindAction("MouseHoldButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -204,7 +225,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_ComputerInputMap_RightArrow;
     private readonly InputAction m_ComputerInputMap_MouseTap;
     private readonly InputAction m_ComputerInputMap_MousePrimaryContact;
-    private readonly InputAction m_ComputerInputMap_MouseTapPosition;
+    private readonly InputAction m_ComputerInputMap_MousePosition;
+    private readonly InputAction m_ComputerInputMap_MouseHoldButton;
     public struct ComputerInputMapActions
     {
         private @PlayerControls m_Wrapper;
@@ -213,7 +235,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @RightArrow => m_Wrapper.m_ComputerInputMap_RightArrow;
         public InputAction @MouseTap => m_Wrapper.m_ComputerInputMap_MouseTap;
         public InputAction @MousePrimaryContact => m_Wrapper.m_ComputerInputMap_MousePrimaryContact;
-        public InputAction @MouseTapPosition => m_Wrapper.m_ComputerInputMap_MouseTapPosition;
+        public InputAction @MousePosition => m_Wrapper.m_ComputerInputMap_MousePosition;
+        public InputAction @MouseHoldButton => m_Wrapper.m_ComputerInputMap_MouseHoldButton;
         public InputActionMap Get() { return m_Wrapper.m_ComputerInputMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -235,9 +258,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @MousePrimaryContact.started -= m_Wrapper.m_ComputerInputMapActionsCallbackInterface.OnMousePrimaryContact;
                 @MousePrimaryContact.performed -= m_Wrapper.m_ComputerInputMapActionsCallbackInterface.OnMousePrimaryContact;
                 @MousePrimaryContact.canceled -= m_Wrapper.m_ComputerInputMapActionsCallbackInterface.OnMousePrimaryContact;
-                @MouseTapPosition.started -= m_Wrapper.m_ComputerInputMapActionsCallbackInterface.OnMouseTapPosition;
-                @MouseTapPosition.performed -= m_Wrapper.m_ComputerInputMapActionsCallbackInterface.OnMouseTapPosition;
-                @MouseTapPosition.canceled -= m_Wrapper.m_ComputerInputMapActionsCallbackInterface.OnMouseTapPosition;
+                @MousePosition.started -= m_Wrapper.m_ComputerInputMapActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_ComputerInputMapActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_ComputerInputMapActionsCallbackInterface.OnMousePosition;
+                @MouseHoldButton.started -= m_Wrapper.m_ComputerInputMapActionsCallbackInterface.OnMouseHoldButton;
+                @MouseHoldButton.performed -= m_Wrapper.m_ComputerInputMapActionsCallbackInterface.OnMouseHoldButton;
+                @MouseHoldButton.canceled -= m_Wrapper.m_ComputerInputMapActionsCallbackInterface.OnMouseHoldButton;
             }
             m_Wrapper.m_ComputerInputMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -254,9 +280,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @MousePrimaryContact.started += instance.OnMousePrimaryContact;
                 @MousePrimaryContact.performed += instance.OnMousePrimaryContact;
                 @MousePrimaryContact.canceled += instance.OnMousePrimaryContact;
-                @MouseTapPosition.started += instance.OnMouseTapPosition;
-                @MouseTapPosition.performed += instance.OnMouseTapPosition;
-                @MouseTapPosition.canceled += instance.OnMouseTapPosition;
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
+                @MouseHoldButton.started += instance.OnMouseHoldButton;
+                @MouseHoldButton.performed += instance.OnMouseHoldButton;
+                @MouseHoldButton.canceled += instance.OnMouseHoldButton;
             }
         }
     }
@@ -267,6 +296,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnRightArrow(InputAction.CallbackContext context);
         void OnMouseTap(InputAction.CallbackContext context);
         void OnMousePrimaryContact(InputAction.CallbackContext context);
-        void OnMouseTapPosition(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
+        void OnMouseHoldButton(InputAction.CallbackContext context);
     }
 }

@@ -42,13 +42,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "MouseTapPosition",
+                    "name": "MousePosition",
                     "type": "Value",
                     "id": "cea3c81a-9983-425f-a38d-7a4bccaa3175",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "MouseHoldButton",
+                    "type": "PassThrough",
+                    "id": "9fc682c4-86bf-4c79-af5c-48a932ae192c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -88,11 +97,11 @@
                 {
                     "name": "",
                     "id": "81393496-bb83-4395-abec-9af91c533774",
-                    "path": "<Mouse>/position",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MouseTapPosition",
+                    "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -104,6 +113,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "MouseTap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3a1b6061-4946-47b8-850d-bde49233052f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseHoldButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

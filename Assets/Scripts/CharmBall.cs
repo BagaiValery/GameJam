@@ -39,13 +39,16 @@ public class CharmBall : MonoBehaviour
 
     private void OnEnable()
     {
-        ControlManager.OnTapOverFan += ThrowCharm;
+        //ControlManager.OnTapOverFan += ThrowCharm;
     }
 
     private void OnDisable()
     {
-        ControlManager.OnTapOverFan -= ThrowCharm;
+        //ControlManager.OnTapOverFan -= ThrowCharm;
     }
+
+    // OnBowEnd - ThrowCharm
+    // OnBowStart - coroutine for z and y coordinates in velocity
 
     private void Update()
     {
@@ -79,37 +82,37 @@ public class CharmBall : MonoBehaviour
 
     }
 
-    private void DrawTrajectory(float initVelocity, float angle)
-    {
-        float x, y;
-        TimeBetweenPoints = Mathf.Max(0.01f, TimeBetweenPoints);
-        LineRenderer.positionCount = Mathf.CeilToInt(LinePoints / TimeBetweenPoints) + 1;
-        Vector3 startPosition = ReleasePosition.position;
-        int i = 0;
-        LineRenderer.SetPosition(i, startPosition);
-        for (float time = 0; time < LinePoints; time += TimeBetweenPoints)
-        {
-            i++;
-            x = initVelocity * time * Mathf.Cos(angle);
-            y = initVelocity * time * Mathf.Sin(angle) + 0.5f * Physics.gravity.y * time * time;
-            Vector3 point = new Vector3(x, y, 0);
-            LineRenderer.SetPosition(i, startPosition + point);
+    //private void DrawTrajectory(float initVelocity, float angle)
+    //{
+    //    float x, y;
+    //    TimeBetweenPoints = Mathf.Max(0.01f, TimeBetweenPoints);
+    //    LineRenderer.positionCount = Mathf.CeilToInt(LinePoints / TimeBetweenPoints) + 1;
+    //    Vector3 startPosition = ReleasePosition.position;
+    //    int i = 0;
+    //    LineRenderer.SetPosition(i, startPosition);
+    //    for (float time = 0; time < LinePoints; time += TimeBetweenPoints)
+    //    {
+    //        i++;
+    //        x = initVelocity * time * Mathf.Cos(angle);
+    //        y = initVelocity * time * Mathf.Sin(angle) + 0.5f * Physics.gravity.y * time * time;
+    //        Vector3 point = new Vector3(x, y, 0);
+    //        LineRenderer.SetPosition(i, startPosition + point);
 
-            Vector3 lastPosition = LineRenderer.GetPosition(i - 1);
-            //if (Physics.Raycast(lastPosition, (point - lastPosition).normalized, out RaycastHit hit, ((point - lastPosition).normalized).magnitude, CharmBallCollisionLayerMask))
-            if (Physics.Linecast(lastPosition, lastPosition, out RaycastHit hit, CharmBallCollisionLayerMask))
-            {
-                LineRenderer.SetPosition(i, hit.point);
-                LineRenderer.positionCount = i + 1;
-                Debug.Log(point);
-                return;
-            }
-        }
+    //        Vector3 lastPosition = LineRenderer.GetPosition(i - 1);
+    //        //if (Physics.Raycast(lastPosition, (point - lastPosition).normalized, out RaycastHit hit, ((point - lastPosition).normalized).magnitude, CharmBallCollisionLayerMask))
+    //        if (Physics.Linecast(lastPosition, lastPosition, out RaycastHit hit, CharmBallCollisionLayerMask))
+    //        {
+    //            LineRenderer.SetPosition(i, hit.point);
+    //            LineRenderer.positionCount = i + 1;
+    //            Debug.Log(point);
+    //            return;
+    //        }
+    //    }
 
-        //x = initVelocity * LinePoints * Mathf.Cos(angle);
-        //y = initVelocity * LinePoints * Mathf.Sin(angle) + 0.5f * Physics.gravity.y * LinePoints * LinePoints;
-        //LineRenderer.SetPosition(i, startPosition + new Vector3(x, y, 0));
+    //    //x = initVelocity * LinePoints * Mathf.Cos(angle);
+    //    //y = initVelocity * LinePoints * Mathf.Sin(angle) + 0.5f * Physics.gravity.y * LinePoints * LinePoints;
+    //    //LineRenderer.SetPosition(i, startPosition + new Vector3(x, y, 0));
 
-    }
+    //}
 
 }
