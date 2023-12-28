@@ -12,18 +12,24 @@ public class CarmBoom : MonoBehaviour
         
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        CheckForCharmable();
+        Destroy(this, .5f);
+    }
+
     public void Update()
     {
         //if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Booooooom!");
-            CheckForCharmable();
+       //     CheckForCharmable();
         }
     }
 
     private void CheckForCharmable()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 100f, whatAreCharmable);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 10f, whatAreCharmable);
         foreach (Collider c in colliders)
         {
             if (c.GetComponent<NPC>())

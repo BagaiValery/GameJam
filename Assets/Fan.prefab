@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 7630596376480629378}
   - component: {fileID: 7630596376480629379}
   - component: {fileID: 9097354456643186159}
-  m_Layer: 0
-  m_Name: Fan 1
+  m_Layer: 3
+  m_Name: Fan
   m_TagString: Fan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
