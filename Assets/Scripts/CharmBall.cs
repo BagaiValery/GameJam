@@ -13,13 +13,9 @@ public class CharmBall : MonoBehaviour
 
     public BallTrajectory trajectory;
 
-    public BowControlManager bowControlManager;
 
     private void OnEnable()
     {
-
-        Debug.Log("2");
-        bowControlManager.OnShootCharm += ThrowCharm;
         StartCoroutine(SetFalseCoroutine());
     }
 
@@ -27,11 +23,6 @@ public class CharmBall : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         this.gameObject.SetActive(false);
-    }
-
-    private void OnDisable()
-    {
-        bowControlManager.OnShootCharm -= ThrowCharm;
     }
 
     // OnBowEnd - ThrowCharm
@@ -42,11 +33,14 @@ public class CharmBall : MonoBehaviour
         float angle = Angle * Mathf.Deg2Rad;
     }
 
-    private void ThrowCharm()
+    public void ThrowCharm()
     {
-        float angle = Angle * Mathf.Deg2Rad;
-        if (movementCoroutine != null) StopCoroutine(movementCoroutine);
-        movementCoroutine = StartCoroutine(MovementCoroutine(InitialVelocity, angle));
+        if (this.gameObject.activeInHierarchy)
+        {
+            float angle = Angle * Mathf.Deg2Rad;
+            if (movementCoroutine != null) StopCoroutine(movementCoroutine);
+            movementCoroutine = StartCoroutine(MovementCoroutine(InitialVelocity, angle));
+        }
     }
 
     IEnumerator MovementCoroutine(float initVelocity, float angle)
