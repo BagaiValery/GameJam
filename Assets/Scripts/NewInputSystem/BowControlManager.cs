@@ -58,6 +58,8 @@ public class BowControlManager : MonoBehaviour
         StopCoroutine(coroutine);
 
         var charmBall = objectPool.GetPooledObject();
+
+        charmBall.transform.position = ballTrajectory.gameObject.transform.position;
         charmBall.SetActive(true);
         charmBall.GetComponent<CharmBall>().ThrowCharm();
 

@@ -22,7 +22,7 @@ public class CarmBoom : MonoBehaviour
     {
         //if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Booooooom!");
+            //Debug.Log("Booooooom!");
        //     CheckForCharmable();
         }
     }

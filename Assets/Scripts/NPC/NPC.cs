@@ -9,6 +9,9 @@ namespace Assets.Scripts
 {
     class NPC : MonoBehaviour
     {
+        public delegate void CharmPerson(GameObject obj);
+        public static event CharmPerson OnCharmPerson;
+
         private Dictionary<Type, INpcBehaviour> behaviourMap;
         private INpcBehaviour currentBehaviour;
 
@@ -63,6 +66,8 @@ namespace Assets.Scripts
         {
             var behaiveour = GetBehaviourFromMap<NpcFanBehaviour>();
             this.SetBehaviour(behaiveour);
+
+            if (OnCharmPerson != null) OnCharmPerson(this.gameObject);
         }
 
         public void SetHaterBehaviour()

@@ -49,6 +49,8 @@ public class ControlManager : MonoBehaviour
 
     private void GetTap(Vector2 v)
     {
+        Debug.Log("TapOnFan");
+
         Ray ray = Camera.main.ScreenPointToRay(v);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
@@ -57,7 +59,7 @@ public class ControlManager : MonoBehaviour
             if (hit.collider.tag == "Fan" && !IsClickOnUI(v))
             {
                 if (OnTapOverFan != null) OnTapOverFan(hit.collider.gameObject);
-                //testText.text = "Location";
+                
             }
 
 

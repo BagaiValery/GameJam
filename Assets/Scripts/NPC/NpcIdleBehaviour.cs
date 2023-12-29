@@ -11,15 +11,15 @@ namespace Assets.Scripts
     {
         public void Enter() 
         {
-            Debug.Log("Enter IDLE");
+            //Debug.Log("Enter IDLE");
         }
         public void Update() 
         {
-            Debug.Log("Update IDLE");
+            //Debug.Log("Update IDLE");
         }
         public void Exite() 
         {
-            Debug.Log("Exite IDLE");
+            //Debug.Log("Exite IDLE");
         }
     }
 }

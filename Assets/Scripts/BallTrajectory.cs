@@ -20,7 +20,8 @@ public class BallTrajectory : MonoBehaviour
     public int linecastResolution;
     public LayerMask canHit;
 
-    public bool ShowTrajectory = true;
+    public bool _ShowTrajectory = false;
+    public bool ShowTrajectory { get { return _ShowTrajectory; } set { _ShowTrajectory = value; } }
 
     private void Start()
     {
