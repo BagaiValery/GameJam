@@ -48,9 +48,7 @@ public class TimerManager : MonoBehaviour
         {
             fans.Add(obj);
 
-            _timerStart = DateTime.Now;
-            TimeSpan span = new TimeSpan(0, 0, minutes, seconds);
-            _timerEnd = _timerStart.Add(span);
+            setTimer();
 
             inprogress = true;
 
@@ -58,6 +56,13 @@ public class TimerManager : MonoBehaviour
             //if (timerCoroutine == null) timerCoroutine = StartCoroutine(StartTimerCoroutine());
             Debug.Log("obj");
         }
+    }
+
+    void setTimer()
+    {
+        _timerStart = DateTime.Now;
+        TimeSpan span = new TimeSpan(0, 0, minutes, seconds);
+        _timerEnd = _timerStart.Add(span);
     }
 
     IEnumerator StartTimerCoroutine()
@@ -137,5 +142,14 @@ public class TimerManager : MonoBehaviour
         timerText.text = "Timeros ended.";
 
         inprogress = false;
+
+        setTimer();
+        
+        int fanIndex = (int)UnityEngine.Random.Range(0f, fans.Count);
+        Assets.Scripts.NPC npc = fans[fanIndex].GetComponent<Assets.Scripts.NPC>();
+        if (npc != null)
+        {
+            npc.SetHaterBehaviour();
+        }
     }
 }
