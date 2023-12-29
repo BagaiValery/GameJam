@@ -129,4 +129,3 @@ MonoBehaviour:
   Angle: 1
   ReleasePosition: {fileID: 0}
   trajectory: {fileID: 0}
-  bowControlManager: {fileID: 0}
