@@ -24,8 +24,17 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "MouseTapPosition",
+                    "type": "Value",
+                    "id": "2b9c2650-f178-46a7-9d11-57352880d699",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "Tap",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "MouseTap",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "c7f3f239-fbd3-4ad6-804c-311d476edb12",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -33,16 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "MousePrimaryContact",
-                    "type": "PassThrough",
-                    "id": "4359c742-2308-4a8b-9e02-818aa7ca2eed",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "MousePosition",
+                    "name": "MouseHoldPosition",
                     "type": "Value",
                     "id": "cea3c81a-9983-425f-a38d-7a4bccaa3175",
                     "expectedControlType": "Vector2",
@@ -52,7 +52,7 @@
                 },
                 {
                     "name": "MouseHoldButton",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "9fc682c4-86bf-4c79-af5c-48a932ae192c",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -85,23 +85,12 @@
                 },
                 {
                     "name": "",
-                    "id": "ebb39657-4166-4324-af9a-aed0bf306716",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MousePrimaryContact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "81393496-bb83-4395-abec-9af91c533774",
                     "path": "<Mouse>/delta",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "processors": "",
                     "groups": "",
-                    "action": "MousePosition",
+                    "action": "MouseHoldPosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -109,7 +98,7 @@
                     "name": "",
                     "id": "52dda217-4b39-492c-90bf-9e68243d0cc1",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "",
                     "action": "MouseTap",
@@ -119,11 +108,22 @@
                 {
                     "name": "",
                     "id": "3a1b6061-4946-47b8-850d-bde49233052f",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Hold",
                     "processors": "",
                     "groups": "",
                     "action": "MouseHoldButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "431dc5bf-5a33-4adc-9e15-b5241f2cef30",
+                    "path": "<Mouse>/position",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseTapPosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

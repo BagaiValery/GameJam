@@ -45,9 +45,7 @@ public class InputManager : Singleton<InputManager>
 
     void Start()
     {
-        playerControls.ComputerInputMap.MousePrimaryContact.started += ctx => StartTouchPrimary(ctx);
-        playerControls.ComputerInputMap.MousePrimaryContact.canceled += ctx => EndTouchPrimary(ctx);
-
+        playerControls.ComputerInputMap.MouseHoldButton.started += ctx => StartTouchPrimary(ctx);
         playerControls.ComputerInputMap.MouseHoldButton.canceled += ctx => EndSwipe(ctx);
 
         playerControls.ComputerInputMap.MouseTap.started += ctx => PerformPrimaryTap(ctx);
@@ -61,29 +59,23 @@ public class InputManager : Singleton<InputManager>
     private void StartTouchPrimary(InputAction.CallbackContext context)
     {
         //if (OnStartTouch != null) OnStartTouch(Utils.ScreenToWorld(mainCamera, locMapInputControls.TouchScreenControl.PrimaryPosition.ReadValue<Vector2>()), (float)context.startTime);
-        if (OnStartTouch != null) OnStartTouch(playerControls.ComputerInputMap.MousePosition.ReadValue<Vector2>());
+        if (OnStartTouch != null) OnStartTouch(playerControls.ComputerInputMap.MouseHoldPosition.ReadValue<Vector2>());
     }
 
     private void EndSwipe(InputAction.CallbackContext context)
     {
-        if (OnEndBow != null) OnEndBow(playerControls.ComputerInputMap.MousePosition.ReadValue<Vector2>());
-    }
-
-    private void EndTouchPrimary(InputAction.CallbackContext context)
-    {
-        //if (OnEndTouch != null) OnEndTouch(Utils.ScreenToWorld(mainCamera, locMapInputControls.TouchScreenControl.PrimaryPosition.ReadValue<Vector2>()), (float)context.time);
-        if (OnEndTouch != null) OnEndTouch(playerControls.ComputerInputMap.MousePosition.ReadValue<Vector2>(), (float)context.time);
+        if (OnEndBow != null) OnEndBow(playerControls.ComputerInputMap.MouseHoldPosition.ReadValue<Vector2>());
     }
 
     public Vector2 MousePosition()
     {
         //return Utils.ScreenToWorld(mainCamera, locMapInputControls.TouchScreenControl.PrimaryPosition.ReadValue<Vector2>());
-        return playerControls.ComputerInputMap.MousePosition.ReadValue<Vector2>();
+        return playerControls.ComputerInputMap.MouseHoldPosition.ReadValue<Vector2>();
     }
 
     private void PerformPrimaryTap(InputAction.CallbackContext context)
     {
-        if (OnPerformTap != null) OnPerformTap(playerControls.ComputerInputMap.MousePosition.ReadValue<Vector2>());
+        if (OnPerformTap != null) OnPerformTap(playerControls.ComputerInputMap.MouseTapPosition.ReadValue<Vector2>());
     }
 
     private void StartLeftArrow(InputAction.CallbackContext context)
