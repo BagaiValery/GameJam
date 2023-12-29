@@ -49,9 +49,7 @@ public class TimerManager : MonoBehaviour
             fans.Add(obj);
 
             setTimer();
-
-            inprogress = true;
-
+            
             //StopAllCoroutines();
             //if (timerCoroutine == null) timerCoroutine = StartCoroutine(StartTimerCoroutine());
             Debug.Log("obj");
@@ -63,6 +61,13 @@ public class TimerManager : MonoBehaviour
         _timerStart = DateTime.Now;
         TimeSpan span = new TimeSpan(0, 0, minutes, seconds);
         _timerEnd = _timerStart.Add(span);
+
+        inprogress = true;
+    }
+
+    void setTimerNull()
+    {
+        _timerEnd = DateTime.MinValue;
     }
 
     IEnumerator StartTimerCoroutine()
@@ -139,17 +144,26 @@ public class TimerManager : MonoBehaviour
     
     void EndTimer()
     {
-        timerText.text = "Timeros ended.";
+        timerText.text = "Timer is ended.";
 
         inprogress = false;
 
-        setTimer();
-        
-        int fanIndex = (int)UnityEngine.Random.Range(0f, fans.Count);
-        Assets.Scripts.NPC npc = fans[fanIndex].GetComponent<Assets.Scripts.NPC>();
-        if (npc != null)
+        if (fans.Count == 0) // Game over - or - fanless ?
         {
-            npc.SetHaterBehaviour();
+            //StopAllCoroutines();
+            setTimerNull();
+        }
+        else
+        {
+            setTimer();
+
+            int fanIndex = (int)UnityEngine.Random.Range(0f, fans.Count);
+            Assets.Scripts.NPC npc = fans[fanIndex].GetComponent<Assets.Scripts.NPC>();
+            if (npc != null)
+            {
+                npc.SetHaterBehaviour();
+            }
+            fans.RemoveAt(fanIndex);
         }
     }
 }
