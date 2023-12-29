@@ -788,12 +788,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   line: {fileID: 1900781800}
   resolution: 250
-  velocity: {x: 2, y: 12, z: 2}
+  velocity: {x: -0.06, y: 12, z: 2}
+  defaultVelocity: {x: 0, y: 0, z: 0}
   yLimit: 12
   linecastResolution: 25
   canHit:
     serializedVersion: 2
     m_Bits: 0
+  ShowTrajectory: 1
 --- !u!1 &841060199
 GameObject:
   m_ObjectHideFlags: 0

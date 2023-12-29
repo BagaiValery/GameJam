@@ -60,6 +60,9 @@ public class BowControlManager : MonoBehaviour
         var charmBall = objectPool.GetPooledObject();
         charmBall.SetActive(true);
         charmBall.GetComponent<CharmBall>().ThrowCharm();
+
+        //hide bow
+        ballTrajectory.ShowTrajectory = false;
     }
     Vector2 prevVector;
     Vector2 curVector;
@@ -72,15 +75,15 @@ public class BowControlManager : MonoBehaviour
             bowTargetVector = curVector;//- prevVector;
             bowTargetVector /= sensetivity;
 
-            if (ballTest.velocity.z < 0 
+            if (ballTest.velocity.z < 0
                 && (Vector3.Dot(ballTest.transform.forward, new Vector3(ballTest.velocity.x + bowTargetVector.x, ballTest.velocity.y, ballTest.velocity.z + bowTargetVector.y)) > 0))
             {
-                    bowTargetVector = Vector2.zero;
+                bowTargetVector = Vector2.zero;
             }
             else
             {
 
-                Debug.Log(bowTargetVector);
+                //Debug.Log(bowTargetVector);
                 ballTest.velocity = new Vector3(ballTest.velocity.x + bowTargetVector.x, ballTest.velocity.y, ballTest.velocity.z + bowTargetVector.y);
             }
 
@@ -94,6 +97,8 @@ public class BowControlManager : MonoBehaviour
     private void StartBow(Vector2 position)
     {
         //show bow
+        ballTrajectory.ShowTrajectory = true;
+        ballTrajectory.velocity = ballTrajectory.defaultVelocity;
         coroutine = StartCoroutine(BowPositionCoroutine());
     }
 

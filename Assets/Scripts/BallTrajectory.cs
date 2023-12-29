@@ -11,6 +11,7 @@ public class BallTrajectory : MonoBehaviour
 
     [Header("Formula variables")]
     public Vector3 velocity;
+    public Vector3 defaultVelocity;
     public float yLimit;
     private float g;
 
@@ -19,16 +20,26 @@ public class BallTrajectory : MonoBehaviour
     public int linecastResolution;
     public LayerMask canHit;
 
-
+    public bool ShowTrajectory = true;
 
     private void Start()
     {
         g = Mathf.Abs(Physics.gravity.y);
+        defaultVelocity = velocity;
     }
 
     private void Update()
     {
-        RenderArc();
+        if(ShowTrajectory)
+        {
+            line.gameObject.SetActive(true);
+
+            RenderArc();
+        }
+        else
+        {
+            line.gameObject.SetActive(false);
+        }
     }
 
     private void RenderArc()
