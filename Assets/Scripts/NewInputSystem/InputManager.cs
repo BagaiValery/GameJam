@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,14 +8,12 @@ public class InputManager : Singleton<InputManager>
 {
     public delegate void StartTouch(Vector2 position);
     public event StartTouch OnStartTouch;
-    public delegate void EndTouch(Vector2 position, float time);
-    public event EndTouch OnEndTouch;
+    public delegate void EndBow(Vector2 position);
+    public event EndBow OnEndBow;
 
     public delegate void PerformTap(Vector2 position);
     public event PerformTap OnPerformTap;
 
-    public delegate void EndBow(Vector2 position);
-    public event EndBow OnEndBow;
 
     public delegate void StartLeft(Vector3 vector3, bool right);
     public event StartLeft OnStartLeft;
@@ -64,7 +63,8 @@ public class InputManager : Singleton<InputManager>
 
     private void EndSwipe(InputAction.CallbackContext context)
     {
-        if (OnEndBow != null) OnEndBow(playerControls.ComputerInputMap.MouseHoldPosition.ReadValue<Vector2>());
+        
+            if (OnEndBow != null) OnEndBow(playerControls.ComputerInputMap.MouseHoldPosition.ReadValue<Vector2>());
     }
 
     public Vector2 MousePosition()

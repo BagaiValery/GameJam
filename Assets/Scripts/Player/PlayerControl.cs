@@ -7,20 +7,25 @@ public class PlayerControl : MonoBehaviour
 {
     [SerializeField] ControlManager control;
     [SerializeField] private float speed;
-    public float Speed
+    private float currentSpeed;
+    public float CurrentSpeed
     {
-        get { return speed; }
-        set { speed = value; }
+        get { return currentSpeed; }
+        set { currentSpeed = value; }
     }
+
+    public float NormalSpeed { get { return speed; } }
 
     void Start()
     {
-
+        currentSpeed = speed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(speed * control.TargetVector * Time.deltaTime);
+        transform.Translate(currentSpeed * control.TargetVector * Time.deltaTime);
+
+        transform.Translate(transform.forward * currentSpeed * Time.deltaTime);
     }
 }

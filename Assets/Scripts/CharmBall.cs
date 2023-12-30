@@ -35,7 +35,7 @@ public class CharmBall : MonoBehaviour
     {
         particles.SetActive(true);
         particles.GetComponent<ParticleSystem>().Play();
-        yield return new WaitForSeconds(particles.GetComponent<ParticleSystem>().main.duration);
+        yield return new WaitForSeconds(0.3f);
         this.gameObject.SetActive(false);
     }
 

@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class TimerManager : MonoBehaviour
 {
-    [SerializeField] float timeForWait;
-
+    [Header("Timer Time")]
+    public int minutes;
+    public int seconds;
+  
     public List<GameObject> fans;
 
     private bool inProgress;
@@ -19,13 +21,14 @@ public class TimerManager : MonoBehaviour
 
     [Header("UI/UX")]
     [SerializeField] TMP_Text timerText;
-
-    [Header("Production Time")]
-    public int minutes;
-    public int seconds;
+    [SerializeField] TMP_Text counterText;
 
     Coroutine timerCoroutine;
     bool inprogress = false;
+
+    [Header("FinishGame")]
+    [SerializeField] FinishScript finishScript;
+    [SerializeField] TMP_Text finisheCounterText;
 
     private void OnEnable()
     {
@@ -40,6 +43,8 @@ public class TimerManager : MonoBehaviour
     void Start()
     {
         if (timerCoroutine == null) timerCoroutine = StartCoroutine(StartTimerCoroutine());
+        counterText.text = fans.Count.ToString();
+        setTimer();
     }
 
     void CharmPerson(GameObject obj)
@@ -47,12 +52,9 @@ public class TimerManager : MonoBehaviour
         if (!fans.Contains(obj))
         {
             fans.Add(obj);
-
+            counterText.text = fans.Count.ToString();
             setTimer();
             
-            //StopAllCoroutines();
-            //if (timerCoroutine == null) timerCoroutine = StartCoroutine(StartTimerCoroutine());
-            Debug.Log("obj");
         }
     }
 
@@ -129,9 +131,8 @@ public class TimerManager : MonoBehaviour
                     }
                     else if(inprogress)
                     {
-                        timerText.text = "Finished";
+                        //timerText.text = "Finished";
                         EndTimer();
-                        //break;
                     }
                 }
 
@@ -142,28 +143,38 @@ public class TimerManager : MonoBehaviour
         }
     }
     
+    public void ShowFinishCounter()
+    {
+        finisheCounterText.text = fans.Count.ToString();
+        StopAllCoroutines();
+    }
+
     void EndTimer()
     {
-        timerText.text = "Timer is ended.";
+        //timerText.text = "Timer is ended.";
 
         inprogress = false;
 
         if (fans.Count == 0) // Game over - or - fanless ?
         {
-            //StopAllCoroutines();
-            setTimerNull();
+            StopAllCoroutines();
+            //setTimerNull();
+
+            finishScript.FinishGame(false);
         }
         else
         {
             setTimer();
 
-            int fanIndex = (int)UnityEngine.Random.Range(0f, fans.Count);
+            int fanIndex = fans.Count - 1;//(int)UnityEngine.Random.Range(0f, fans.Count);
             Assets.Scripts.NPC npc = fans[fanIndex].GetComponent<Assets.Scripts.NPC>();
             if (npc != null)
             {
                 npc.SetHaterBehaviour();
             }
             fans.RemoveAt(fanIndex);
+
+            counterText.text = fans.Count.ToString();
         }
     }
 }

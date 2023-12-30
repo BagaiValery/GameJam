@@ -18,6 +18,9 @@ public class ControlManager : MonoBehaviour
 
     private InputManager inputManager;
 
+    [SerializeField] GameObject player;
+    [SerializeField] float radius;
+
     private void Awake()
     {
         inputManager = InputManager.Instance;
@@ -49,17 +52,18 @@ public class ControlManager : MonoBehaviour
 
     private void GetTap(Vector2 v)
     {
-        Debug.Log("TapOnFan");
+        
 
         Ray ray = Camera.main.ScreenPointToRay(v);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
 
-            if (hit.collider.tag == "Fan" && !IsClickOnUI(v))
+            if (hit.collider.tag == "Fan" && !IsClickOnUI(v) &&
+                Vector3.Distance(player.transform.position, hit.collider.transform.position) < radius)
             {
                 if (OnTapOverFan != null) OnTapOverFan(hit.collider.gameObject);
-                
+                Debug.Log("TapOnFan");
             }
 
 

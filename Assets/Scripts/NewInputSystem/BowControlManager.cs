@@ -7,7 +7,6 @@ using UnityEngine;
 public class BowControlManager : MonoBehaviour
 {
     [SerializeField] ControlManager controlManager;
-    [SerializeField] BallTrajectory ballTest;
 
     private InputManager inputManager;
 
@@ -21,6 +20,7 @@ public class BowControlManager : MonoBehaviour
 
     private ObjectPool objectPool;
 
+    DateTime startMouseTouch = DateTime.MinValue;
 
     private void Awake()
     {
@@ -57,11 +57,16 @@ public class BowControlManager : MonoBehaviour
         //Debug.Log("Stop");
         StopCoroutine(coroutine);
 
-        var charmBall = objectPool.GetPooledObject();
+        TimeSpan timeLeft = DateTime.Now - startMouseTouch;
+        //Debug.Log(timeLeft.TotalSeconds);
+        if (timeLeft.TotalSeconds > 0.15f)
+        {
+            var charmBall = objectPool.GetPooledObject();
 
-        charmBall.transform.position = ballTrajectory.gameObject.transform.position;
-        charmBall.SetActive(true);
-        charmBall.GetComponent<CharmBall>().ThrowCharm();
+            charmBall.transform.position = ballTrajectory.gameObject.transform.position;
+            charmBall.SetActive(true);
+            charmBall.GetComponent<CharmBall>().ThrowCharm();
+        }
 
         //hide bow
         ballTrajectory.ShowTrajectory = false;
@@ -77,19 +82,18 @@ public class BowControlManager : MonoBehaviour
             bowTargetVector = curVector;//- prevVector;
             bowTargetVector /= sensetivity;
 
-            if (ballTest.velocity.z < 0
-                && (Vector3.Dot(ballTest.transform.forward, new Vector3(ballTest.velocity.x + bowTargetVector.x, ballTest.velocity.y, ballTest.velocity.z + bowTargetVector.y)) > 0))
+            //Debug.Log(curVector);
+
+            if (ballTrajectory.velocity.z < 0
+                && (Vector3.Dot(ballTrajectory.transform.forward, new Vector3(ballTrajectory.velocity.x + bowTargetVector.x, ballTrajectory.velocity.y, ballTrajectory.velocity.z + bowTargetVector.y)) > 0))
             {
                 bowTargetVector = Vector2.zero;
             }
             else
             {
-
-                //Debug.Log(bowTargetVector);
-                ballTest.velocity = new Vector3(ballTest.velocity.x + bowTargetVector.x, ballTest.velocity.y, ballTest.velocity.z + bowTargetVector.y);
+                ballTrajectory.velocity = new Vector3(ballTrajectory.velocity.x + bowTargetVector.x, ballTrajectory.velocity.y, ballTrajectory.velocity.z + bowTargetVector.y);
             }
 
-            //Debug.Log(ballTest.velocity);
             prevVector = curVector;
 
             yield return new WaitForFixedUpdate();
@@ -102,7 +106,8 @@ public class BowControlManager : MonoBehaviour
         ballTrajectory.ShowTrajectory = true;
         ballTrajectory.velocity = ballTrajectory.defaultVelocity;
         coroutine = StartCoroutine(BowPositionCoroutine());
-    }
 
+        startMouseTouch = DateTime.Now;
+    }
 
 }

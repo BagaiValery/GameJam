@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -21,18 +17,35 @@ namespace Assets.Scripts
         public void Enter()
         {
             player = GameObject.FindGameObjectWithTag("Star").GetComponent<Transform>();
+            speed = player.GetComponent<PlayerControl>().CurrentSpeed - 0.5f;
+
+            player.GetComponent<PlayerControl>().StartCoroutine(speedLimit());
         }
-        public void Update() 
+
+        IEnumerator speedLimit()
+        {
+            float seconds = 3;
+
+            while (speed < player.GetComponent<PlayerControl>().CurrentSpeed)
+            {
+                speed += (Time.deltaTime * player.GetComponent<PlayerControl>().CurrentSpeed) / seconds;
+
+                yield return null;
+            }
+        }
+
+        public void Update()
         {
             var rotation = Quaternion.LookRotation(player.transform.position - npc.position);
+            npc.rotation = rotation;
 
             // go forward player
             float step = speed * Time.deltaTime;
             npc.position = Vector3.MoveTowards(npc.position, player.position - Vector3.forward, step);
         }
-        public void Exite() 
+        public void Exite()
         {
-            
+
         }
     }
 }

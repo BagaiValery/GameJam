@@ -15,8 +15,14 @@ namespace Assets.Scripts
         private Dictionary<Type, INpcBehaviour> behaviourMap;
         private INpcBehaviour currentBehaviour;
 
+        private Animator animator;
+
+        [SerializeField] GameObject particles;
+
         private void Start()
         {
+            animator = GetComponent<Animator>();
+
             this.InitBehaviours();
             this.SetDefoultBehaviour();
         }
@@ -66,6 +72,9 @@ namespace Assets.Scripts
         {
             var behaiveour = GetBehaviourFromMap<NpcFanBehaviour>();
             this.SetBehaviour(behaiveour);
+
+            animator.SetTrigger("Go");
+            particles.GetComponent<ParticleSystem>().Play();
 
             if (OnCharmPerson != null) OnCharmPerson(this.gameObject);
         }
