@@ -18683,6 +18683,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BowControlManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3143116730366650590, guid: c4d15970599937141a74ea61a4e70e1e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3143116730366650591, guid: c4d15970599937141a74ea61a4e70e1e, type: 3}
       propertyPath: ballTrajectory
       value: 
@@ -35570,6 +35574,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrajectoryLine
       objectReference: {fileID: 0}
+    - target: {fileID: 7898065880495760814, guid: 7640f033a3bb64a408b47bab5bc130e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7640f033a3bb64a408b47bab5bc130e8, type: 3}
 --- !u!120 &1362310939 stripped
@@ -51744,7 +51752,7 @@ PrefabInstance:
       objectReference: {fileID: 1544863003}
     - target: {fileID: 5244408612468903674, guid: 931b5df9ed2aa374f918118b7ab00874, type: 3}
       propertyPath: radius
-      value: 4
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5244408612468903675, guid: 931b5df9ed2aa374f918118b7ab00874, type: 3}
       propertyPath: m_Name

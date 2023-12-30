@@ -2180,9 +2180,9 @@ RectTransform:
   m_Father: {fileID: 161924653}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -867, y: 458}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 93, y: -82}
   m_SizeDelta: {x: 100.3526, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &194653370
@@ -6057,7 +6057,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.8746948, y: -16.282227}
+  m_AnchoredPosition: {x: 1.8747559, y: -16.282227}
   m_SizeDelta: {x: -178.8899, y: -171.06921}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &542548251
@@ -7804,6 +7804,10 @@ PrefabInstance:
     - target: {fileID: 3143116730366650590, guid: c4d15970599937141a74ea61a4e70e1e, type: 3}
       propertyPath: m_Name
       value: BowControlManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3143116730366650590, guid: c4d15970599937141a74ea61a4e70e1e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3143116730366650591, guid: c4d15970599937141a74ea61a4e70e1e, type: 3}
       propertyPath: ballTrajectory
@@ -12672,7 +12676,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.8746948, y: -16.282227}
+  m_AnchoredPosition: {x: 1.8747559, y: -16.282227}
   m_SizeDelta: {x: -178.8899, y: -171.06921}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1230614835
@@ -13274,6 +13278,10 @@ PrefabInstance:
     - target: {fileID: 7898065880495760814, guid: 7640f033a3bb64a408b47bab5bc130e8, type: 3}
       propertyPath: m_Name
       value: TrajectoryLine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7898065880495760814, guid: 7640f033a3bb64a408b47bab5bc130e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7640f033a3bb64a408b47bab5bc130e8, type: 3}
